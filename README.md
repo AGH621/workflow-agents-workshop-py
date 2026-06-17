@@ -255,11 +255,11 @@ skips:
 ## Notes
 
 - This is a **uv workspace** monorepo (`shared/*` and the three `packages/*`).
-  Install from the root with `uv sync --all-packages`.
+  Install from the root with `uv sync` — this installs all workspace members and
+  their dependencies (including `redis`) into the root venv, so `uv run pytest`
+  works without extra flags.
 - Blueprint `buildCommand`s use `uv sync --package workshop-<pattern>` (e.g. `workshop-queue-agents`) so the
-  service package and its workspace deps are installed into the Render venv. A
-  plain root `uv sync` leaves the venv empty and causes
-  `ModuleNotFoundError: No module named 'naive_agent'` at start.
+  service package and its workspace deps are installed into the Render venv.
 - After changing a Blueprint, **sync the Blueprint** in the Render Dashboard so
   existing services pick up the new `buildCommand` — a manual deploy alone reuses
   the old command stored on the service.
